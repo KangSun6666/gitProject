@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.fkit.springbootmybatistest.mapper.InformationMapper">
+
+    <select id="selByMachineId" resultType="org.fkit.springbootmybatistest.entity.Information">
+        select * from information where machineId = #{machineId}
+    </select>
+
+    <insert id="addInformation" parameterType="org.fkit.springbootmybatistest.entity.Information">
+        insert into information(infoId,readDate,productType,fd,machineId) values(#{infoId},#{readDate},#{productType},#{fd},#{machineId})
+    </insert>
+
+    <select id="selByMachineIdAndInfoNum" resultType="org.fkit.springbootmybatistest.entity.Information">
+        select * from information where machineId = #{machineId} and infoId between #{start} and #{end} order by infoId
+    </select>
+
+</mapper>

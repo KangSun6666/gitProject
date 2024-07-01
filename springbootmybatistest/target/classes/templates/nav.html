@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8"/>
+<title>Insert title here</title>
+</head>
+<body>
+	<nav class="navbar-default navbar-static-side" role="navigation" th:fragment="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav metismenu" id="side-menu">
+                <li class="nav-header">
+                    <div class="dropdown profile-element"> 
+                    	<span>
+                            <img alt="image" class="img-circle" th:src="@{/static/img/landing/a4.jpg}" />
+						</span>
+                    	<a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="clear"> 
+                            	<span class="block m-t-xs">
+                            		<strong class="font-bold"><label th:text="${session.user.name}"></label></strong>
+                             	</span> 
+                             </span>
+                     	</a>
+                    </div>
+                    <div class="logo-element">
+                        <label th:text="${session.user.name}"></label>
+                    </div>
+                </li>
+                <li id="news">
+                    <a href="#"><i class="fa fa-desktop"></i> <span class="nav-label">用户管理</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level collapse">
+                        <li><a href="/user/selUser">查询用户</a></li>
+                        <li><a href="/user/toAdd">添加用户</a></li>
+                        <li><a href="#">用户使用记录</a></li>
+                        <!--<li><a href="#">删除用户</a></li>-->
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">设备管理</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level collapse">
+                        <li><a href="/machine/selAll">查询设备</a></li>
+                        <li><a href="/machine/toAdd">添加设备</a></li>
+                        <li><a href="#">设备使用</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="mailbox.html"><i class="fa fa-envelope"></i> <span class="nav-label">预约管理</span><span class="label label-warning pull-right">new</span></a>
+                    <ul class="nav nav-second-level collapse">
+                        <li><a href="/appo/selAll">查看预约</a></li>
+                        <!--<li><a href="#">新增预约</a></li>-->
+                        <!--<li><a href="#">订单退款</a></li>-->
+                        <!--<li><a href="#">订单发货</a></li>-->
+                        <!--<li><a href="#">订单退货</a></li>-->
+                        <!--<li><a href="#">发货点管理</a></li>-->
+                        <!--<li><a href="#">快递单模板</a></li>-->
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-edit"></i> <span class="nav-label">使用记录</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level collapse">
+                        <li><a href="/record/sel">查看记录</a></li>
+                        <!--<li><a href="#">会员等级</a></li>-->
+                        <!--<li><a href="#">等级规则</a></li>-->
+                        <!--<li><a href="#">积分管理</a></li>-->
+                        <!--<li><a href="#">积分规则</a></li>-->
+                        <!--<li><a href="#">预存款管理</a></li>-->
+                        <!--<li><a href="#">咨询管理</a></li>-->
+                        <!--<li><a href="#">评论管理</a></li>-->
+                        <!--<li><a href="#">消息管理</a></li>-->
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-files-o"></i> <span class="nav-label">即时预约</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level collapse">
+                        <li><a href="/que/selAll">队伍管理</a></li>
+                        <!--<li><a href="#">待添加</a></li>-->
+                        <!--<li><a href="#">待添加</a></li>-->
+                        <!--<li><a href="#">待添加</a></li>-->
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-shopping-cart"></i> <span class="nav-label">系统设置</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level collapse">
+                        <li><a href="#">系统设置</a></li>
+                        <!--<li><a href="#">地区设置</a></li>-->
+                        <!--<li><a href="#">支付方式</a></li>-->
+                        <!--<li><a href="#">配送方式</a></li>-->
+                        <!--<li><a href="#">物流公司</a></li>-->
+                        <!--<li><a href="#">管理员</a></li>-->
+                        <!--<li><a href="#">管理员角色</a></li>-->
+                        <!--<li><a href="#">管理员权限</a></li>-->
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-diamond"></i> <span class="nav-label">首页</span></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</body>
+</html>
+
+
+

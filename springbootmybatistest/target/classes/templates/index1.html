@@ -1,0 +1,588 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" html xmlns:th=http://www.thymeleaf.org>-->
+<!--<head>-->
+<!--    <meta charset="utf-8" />-->
+<!--    <title>login</title>-->
+<!--    &lt;!&ndash;用百度的静态资源库的cdn安装bootstrap环境&ndash;&gt;-->
+<!--    &lt;!&ndash; Bootstrap 核心 CSS 文件 &ndash;&gt;-->
+<!--    <link href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">-->
+<!--    &lt;!&ndash;font-awesome 核心我CSS 文件&ndash;&gt;-->
+<!--    <link href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">-->
+<!--    &lt;!&ndash; 在bootstrap.min.js 之前引入 &ndash;&gt;-->
+<!--    <script src="http://apps.bdimg.com/libs/jquery/2.0.0/jquery.min.js"></script>-->
+<!--    &lt;!&ndash; Bootstrap 核心 JavaScript 文件 &ndash;&gt;-->
+<!--    <script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>-->
+<!--    &lt;!&ndash;jquery.validate&ndash;&gt;-->
+<!--    <script type="text/javascript" src="/static/js/jquery.validate.min.js" ></script>-->
+<!--    <script type="text/javascript" src="/static/js/message.js" ></script>-->
+<!--    <style type="text/css">-->
+<!--        body{background: url(/static/img/4.jpg) no-repeat;background-size:cover;font-size: 16px;}-->
+<!--        .form{background: rgba(255,255,255,0.2);width:400px;margin:100px auto;}-->
+<!--        #login_form{display: block;}-->
+<!--        #register_form{display: none;}-->
+<!--        .fa{display: inline-block;top: 27px;left: 6px;position: relative;color: #ccc;}-->
+<!--        input[type="text"],input[type="password"]{padding-left:26px;}-->
+<!--        .checkbox{padding-left:21px;}-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--&lt;!&ndash;-->
+<!--    bootstrap-->
+<!--    网格系统:通过行和列布局-->
+<!--    行必须放在container内-->
+<!--    手机用col-xs-*-->
+<!--    平板用col-sm-*-->
+<!--    笔记本或普通台式电脑用col-md-*-->
+<!--    大型设备台式电脑用col-lg-*-->
+<!--    为了兼容多个设备，可以用多个col-*-*来控制；-->
+<!--&ndash;&gt;-->
+<!--<div class="container">-->
+<!--    <div class="form row">-->
+<!--        <form class="form-horizontal col-sm-offset-3 col-md-offset-3" id="login_form" action="/user/loginUser" method="post">-->
+<!--            <h3 class="form-title">欢迎登录设备共享网站</h3>-->
+<!--            <div><label th:text="${msg}" style="color:red"></label></div>-->
+<!--            <div class="col-sm-9 col-md-9">-->
+<!--                <div class="form-group">-->
+<!--                    <i class="fa fa-user fa-lg"></i>-->
+<!--                    <input id="name" class="form-control required" type="text" placeholder="Username" name="name" autofocus="autofocus" maxlength="20"/>-->
+<!--                </div>-->
+<!--                <div class="form-group">-->
+<!--                    <i class="fa fa-lock fa-lg"></i>-->
+<!--                    <input id="pwd" class="form-control required" type="password" placeholder="Password" name="password" maxlength="8"/>-->
+<!--                </div>-->
+<!--                <div class="form-group">-->
+<!--                    <label class="checkbox">-->
+<!--                        <input type="checkbox" name="remember" value="1"/> 记住密码-->
+<!--                    </label>-->
+<!--                    <hr/>-->
+<!--                    <a href="javascript:;" id="register_btn" class="">没有账号？点击注册</a>-->
+<!--                </div>-->
+<!--                <div class="form-group">-->
+<!--                    <input type="submit" id="login_btn" class="btn btn-success pull-right" value="登录 "/>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </form>-->
+<!--    </div>-->
+
+<!--    <div class="form row">-->
+<!--        <form class="form-horizontal col-sm-offset-3 col-md-offset-3" id="register_form" method="post" action="/user/register">-->
+<!--            <h3 class="form-title">欢迎注册设备共享账号</h3>-->
+<!--            <div class="col-sm-9 col-md-9">-->
+<!--                <div class="form-group">-->
+<!--                    <i class="fa fa-user fa-lg"></i>-->
+<!--                    <input class="form-control required" type="text" placeholder="Username" name="name" autofocus="autofocus"/>-->
+<!--                </div>-->
+<!--                <div class="form-group">-->
+<!--                    <i class="fa fa-lock fa-lg"></i>-->
+<!--                    <input class="form-control required" type="password" placeholder="Password" id="register_password" name="password"/>-->
+<!--                </div>-->
+<!--                <div class="form-group">-->
+<!--                    <i class="fa fa-check fa-lg"></i>-->
+<!--                    <input class="form-control required" type="password" placeholder="Re-type Your Password" name="rpassword"/>-->
+<!--                </div>-->
+<!--                <div class="form-group">-->
+
+<!--                    <label id="lsex_format" for="lsex_format">男</label>-->
+<!--                    <input id="sex_format" name="sex" type="radio" value="男">-->
+
+<!--                    <label id="lsex_format1" for="lsex_format">女</label>-->
+<!--                    <input id="sex_format1" name="sex" type="radio" value="女">-->
+<!--                </div>-->
+<!--                <div class="form-group">-->
+<!--                    <input type="submit" class="btn btn-success " value="注册 "/>-->
+<!--                    <a class="btn btn-primary" style="margin-left:100px" href="/user/toIndex" role="button">返回</a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </form>-->
+<!--    </div>-->
+<!--</div>-->
+<!--<script>-->
+<!--    $().ready(function() {-->
+<!--        $("#login_form").validate({-->
+<!--            rules: {-->
+<!--                name: "required",-->
+<!--                password: {-->
+<!--                    required: true,-->
+<!--                    minlength: 5-->
+<!--                },-->
+<!--            },-->
+<!--            messages: {-->
+<!--                name: "请输入姓名",-->
+<!--                password: {-->
+<!--                    required: "请输入密码",-->
+<!--                    minlength: jQuery.format("密码不能小于{0}个字 符")-->
+<!--                },-->
+<!--            }-->
+<!--        });-->
+<!--        $("#register_form").validate({-->
+<!--            rules: {-->
+<!--                name: "required",-->
+<!--                password: {-->
+<!--                    required: true,-->
+<!--                    minlength: 5-->
+<!--                },-->
+<!--                rpassword: {-->
+<!--                    required: true,-->
+<!--                    equalTo: "#register_password"-->
+<!--                },-->
+<!--                sex: "required"-->
+<!--            },-->
+<!--            messages: {-->
+<!--                name: "请输入姓名",-->
+<!--                sex: "请选择性别",-->
+<!--                password: {-->
+<!--                    required: "请输入密码",-->
+<!--                    minlength: jQuery.format("密码不能小于{0}个字 符")-->
+<!--                },-->
+<!--                rpassword: {-->
+<!--                    required:"请确认密码",-->
+<!--                    equalTo: "两次密码不一样"-->
+<!--                },-->
+<!--            }-->
+<!--        });-->
+<!--    });-->
+<!--    $(function() {-->
+<!--        $("#register_btn").click(function() {-->
+<!--            $("#register_form").css("display", "block");-->
+<!--            $("#login_form").css("display", "none");-->
+<!--        });-->
+<!--        $("#back_btn").click(function() {-->
+<!--            $("#register_form").css("display", "none");-->
+<!--            $("#login_form").css("display", "block");-->
+<!--        });-->
+<!--    });-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>md转换为html</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.0/showdown.min.js"></script>
+</head>
+
+<body>
+<div style="font-size: 20px;height: 30px; text-align: center;color: #009689; font-weight: bold;">Markdown转换为HTML的Demo</div>
+<style>
+<!--    .markdown-here-wrapper {-->
+<!--        font-size: 16px;-->
+<!--        line-height: 1.8em;-->
+<!--        letter-spacing: 0.1em;-->
+<!--    }-->
+
+<!--    pre,-->
+<!--    code {-->
+<!--        font-size: 14px;-->
+<!--        font-family: Roboto, 'Courier New', Consolas, Inconsolata, Courier, monospace;-->
+<!--        margin: auto 5px;-->
+<!--    }-->
+
+<!--    code {-->
+<!--        white-space: pre-wrap;-->
+<!--        border-radius: 2px;-->
+<!--        display: inline;-->
+<!--    }-->
+
+<!--    pre {-->
+<!--        font-size: 15px;-->
+<!--        line-height: 1.4em;-->
+<!--        display: block;-->
+<!--         !important;-->
+<!--    }-->
+
+<!--    pre code {-->
+<!--        white-space: pre;-->
+<!--        overflow: auto;-->
+<!--        border-radius: 3px;-->
+<!--        padding: 1px 1px;-->
+<!--        display: block !important;-->
+<!--    }-->
+
+<!--    strong,-->
+<!--    b {-->
+<!--        color: #BF360C;-->
+<!--    }-->
+
+<!--    em,-->
+<!--    i {-->
+<!--        color: #009688;-->
+<!--    }-->
+
+<!--    hr {-->
+<!--        border: 1px solid #BF360C;-->
+<!--        margin: 1.5em auto;-->
+<!--    }-->
+
+<!--    p {-->
+<!--        margin: 1.5em 5px !important;-->
+<!--    }-->
+
+<!--    table,-->
+<!--    pre,-->
+<!--    dl,-->
+<!--    blockquote,-->
+<!--    q,-->
+<!--    ul,-->
+<!--    ol {-->
+<!--        margin: 10px 5px;-->
+<!--    }-->
+
+<!--    ul,-->
+<!--    ol {-->
+<!--        padding-left: 15px;-->
+<!--    }-->
+
+<!--    li {-->
+<!--        margin: 10px;-->
+<!--    }-->
+
+<!--    li p {-->
+<!--        margin: 10px 0 !important;-->
+<!--    }-->
+
+<!--    ul ul,-->
+<!--    ul ol,-->
+<!--    ol ul,-->
+<!--    ol ol {-->
+<!--        margin: 0;-->
+<!--        padding-left: 10px;-->
+<!--    }-->
+
+<!--    ul {-->
+<!--        list-style-type: circle;-->
+<!--    }-->
+
+<!--    dl {-->
+<!--        padding: 0;-->
+<!--    }-->
+
+<!--    dl dt {-->
+<!--        font-size: 1em;-->
+<!--        font-weight: bold;-->
+<!--        font-style: italic;-->
+<!--    }-->
+
+<!--    dl dd {-->
+<!--        margin: 0 0 10px;-->
+<!--        padding: 0 10px;-->
+<!--    }-->
+
+<!--    blockquote,-->
+<!--    q {-->
+<!--        border-left: 2px solid #009688;-->
+<!--        padding: 0 10px;-->
+<!--        color: #777;-->
+<!--        quotes: none;-->
+<!--        margin-left: 1em;-->
+<!--    }-->
+
+<!--    blockquote::before,-->
+<!--    blockquote::after,-->
+<!--    q::before,-->
+<!--    q::after {-->
+<!--        content: none;-->
+<!--    }-->
+
+<!--    h1,-->
+<!--    h2,-->
+<!--    h3,-->
+<!--    h4,-->
+<!--    h5,-->
+<!--    h6 {-->
+<!--        margin: 20px 0 10px;-->
+<!--        padding: 0;-->
+<!--        font-style: bold !important;-->
+<!--        color: #009688 !important;-->
+<!--        text-align: center !important;-->
+<!--        margin: 1.5em 5px !important;-->
+<!--        padding: 0.5em 1em !important;-->
+<!--    }-->
+
+<!--    h1 {-->
+<!--        font-size: 24px !important;-->
+<!--        border-bottom: 1px solid #ddd !important;-->
+<!--    }-->
+
+<!--    h2 {-->
+<!--        font-size: 20px !important;-->
+<!--        border-bottom: 1px solid #eee !important;-->
+<!--    }-->
+
+<!--    h3 {-->
+<!--        font-size: 18px;-->
+<!--    }-->
+
+<!--    h4 {-->
+<!--        font-size: 16px;-->
+<!--    }-->
+
+
+<!--    table {-->
+<!--        padding: 0;-->
+<!--        border-collapse: collapse;-->
+<!--        border-spacing: 0;-->
+<!--        font-size: 1em;-->
+<!--        font: inherit;-->
+<!--        border: 0;-->
+<!--        margin: 0 auto;-->
+<!--    }-->
+
+<!--    tbody {-->
+<!--        margin: 0;-->
+<!--        padding: 0;-->
+<!--        border: 0;-->
+<!--    }-->
+
+<!--    table tr {-->
+<!--        border: 0;-->
+<!--        border-top: 1px solid #CCC;-->
+<!--        background-color: white;-->
+<!--        margin: 0;-->
+<!--        padding: 0;-->
+<!--    }-->
+
+<!--    table tr:nth-child(2n) {-->
+<!--        background-color: #F8F8F8;-->
+<!--    }-->
+
+<!--    table tr th,-->
+<!--    table tr td {-->
+<!--        font-size: 16px;-->
+<!--        border: 1px solid #CCC;-->
+<!--        margin: 0;-->
+<!--        padding: 5px 10px;-->
+<!--    }-->
+
+<!--    table tr th {-->
+<!--        font-weight: bold;-->
+<!--        color: #eee;-->
+<!--        border: 1px solid #009688;-->
+<!--        background-color: #009688;-->
+<!--    }-->
+<!--    </style>-->
+<!--<style>-->
+<!--    #area>table {-->
+<!--        width: 100%;-->
+<!--        table-layout: fixed;-->
+<!--    }-->
+
+<!--    #area table tr td {-->
+<!--        margin: 0;-->
+<!--        padding: 6px;-->
+<!--        border: 0;-->
+
+<!--    }-->
+
+
+<!--    #md-area {-->
+
+<!--        width: 100%;-->
+<!--        height: 600px;-->
+<!--        font-size: 18px;-->
+<!--        overflow: hidden;-->
+<!--        font-weight: bold;-->
+<!--        outline: none;-->
+<!--    }-->
+
+<!--    #show-area {-->
+<!--        height: 600px;-->
+<!--        background-color: #FCF6E5;-->
+<!--    }-->
+
+<!--    .clearfix:before {-->
+<!--        content: "";-->
+<!--        display: table;-->
+<!--    }-->
+html,body{ font-family: "SF UI Display", ".PingFang SC","PingFang SC", "Neue Haas Grotesk Text Pro", "Arial Nova", "Segoe UI", "Microsoft YaHei", "Microsoft JhengHei", "Helvetica Neue", "Source Han Sans SC", "Noto Sans CJK SC", "Source Han Sans CN", "Noto Sans SC", "Source Han Sans TC", "Noto Sans CJK TC", "Hiragino Sans GB", sans-serif;
+font-size: 16px;
+color:#222
+-webkit-text-size-adjust:none;  min-width: 200px;
+max-width: 760px;
+margin: 0 auto; padding: 1rem;
+line-height: 1.5rem;
+
+}
+h1,h2,h3,h4,h5,h6{font-family: "PT Sans","SF UI Display", ".PingFang SC","PingFang SC", "Neue Haas Grotesk Text Pro", "Arial Nova", "Segoe UI", "Microsoft YaHei", "Microsoft JhengHei", "Helvetica Neue", "Source Han Sans SC", "Noto Sans CJK SC", "Source Han Sans CN", "Noto Sans SC", "Source Han Sans TC", "Noto Sans CJK TC", "Hiragino Sans GB", sans-serif;
+text-rendering:optimizelegibility;margin-bottom:1em;font-weight:bold; line-height: 1.8rem;
+
+}
+h1,h2{position:relative;padding-top:1rem;padding-bottom:0.2rem;margin-bottom:1rem;background:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAABCAYAAACsXeyTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAFUlEQVQIHWNIS0sr/v//PwMMDzY+ADqMahlW4J91AAAAAElFTkSuQmCC') bottom left repeat-x;}
+h2{padding-top:0.8rem;padding-bottom:0.2rem;}
+h1{ font-size: 1.6rem;}
+h2{ font-size: 1.4rem;}
+h3{ font-size: 1.2rem;}
+h4{ font-size: 1.1rem;}
+h5{ font-size: 1.0rem;}
+h6{ font-size: 0.9rem;}
+
+table{border-collapse:collapse;border-spacing:0;
+margin-top: 0.8rem;
+margin-bottom: 1.4rem;
+}
+tr{  background-color: #fff;
+border-top: 1px solid #ccc;}
+th,td{padding: 5px 14px;
+border: 1px solid #ddd;}
+
+blockquote{font-style:italic;font-size:1.1em;line-height:1.5em;padding-left:1em; border-left:4px solid #D5D5D5;    margin-left: 0;
+margin-right: 0;
+margin-bottom: 1.5rem; }
+
+a{color:#1863a1}
+
+pre,code,p code,li code{font-family:Menlo,Monaco,"Andale Mono","lucida console","Courier New",monospace}
+
+pre{-webkit-border-radius:0.4em;-moz-border-radius:0.4em;-ms-border-radius:0.4em;-o-border-radius:0.4em;border-radius:0.4em;border:1px solid #e7dec3;line-height:1.45em;font-size:0.9rem;margin-bottom:2.1em;padding:.8em 1em;color:#586e75;overflow:auto; background-color:#fdf6e3;}
+
+p code,li code{display:inline-block;white-space:no-wrap;background:#fff;font-size:0.9rem;line-height:1.5em;color:#555;border:1px solid #ddd;-webkit-border-radius:0.4em;-moz-border-radius:0.4em;-ms-border-radius:0.4em;-o-border-radius:0.4em;border-radius:0.4em;padding:0 .3em;margin:-1px 4px;}
+p pre code,li pre code{font-size:1em !important;background:none;border:none}
+
+img{max-width:100%;-webkit-border-radius:0.3em;-moz-border-radius:0.3em;-ms-border-radius:0.3em;-o-border-radius:0.3em;border-radius:0.3em;-webkit-box-shadow:rgba(0,0,0,0.15) 0 1px 4px;-moz-box-shadow:rgba(0,0,0,0.15) 0 1px 4px;box-shadow:rgba(0,0,0,0.15) 0 1px 4px;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;border:#fff 0.5em solid}
+
+
+hr {
+height: 0;
+margin: 15px 0;
+overflow: hidden;
+background: transparent;
+border: 0;
+border-bottom: 1px solid #ddd;
+}
+
+
+/*
+
+Orginal Style from ethanschoonover.com/solarized (c) Jeremy Hull <sourdrums@gmail.com>
+
+*/
+
+.hljs {
+display: block;
+overflow-x: auto;
+padding: 0.5em;
+background: #fdf6e3;
+color: #657b83;
+-webkit-text-size-adjust: none;
+}
+
+.hljs-comment,
+.diff .hljs-header,
+.hljs-doctype,
+.hljs-pi,
+.lisp .hljs-string {
+color: #93a1a1;
+}
+
+/* Solarized Green */
+.hljs-keyword,
+.hljs-winutils,
+.method,
+.hljs-addition,
+.css .hljs-tag,
+.hljs-request,
+.hljs-status,
+.nginx .hljs-title {
+color: #859900;
+}
+
+/* Solarized Cyan */
+.hljs-number,
+.hljs-command,
+.hljs-string,
+.hljs-tag .hljs-value,
+.hljs-rule .hljs-value,
+.hljs-doctag,
+.tex .hljs-formula,
+.hljs-regexp,
+.hljs-hexcolor,
+.hljs-link_url {
+color: #2aa198;
+}
+
+/* Solarized Blue */
+.hljs-title,
+.hljs-localvars,
+.hljs-chunk,
+.hljs-decorator,
+.hljs-built_in,
+.hljs-identifier,
+.vhdl .hljs-literal,
+.hljs-id,
+.css .hljs-function,
+.hljs-name {
+color: #268bd2;
+}
+
+/* Solarized Yellow */
+.hljs-attribute,
+.hljs-variable,
+.lisp .hljs-body,
+.smalltalk .hljs-number,
+.hljs-constant,
+.hljs-class .hljs-title,
+.hljs-parent,
+.hljs-type,
+.hljs-link_reference {
+color: #b58900;
+}
+
+/* Solarized Orange */
+.hljs-preprocessor,
+.hljs-preprocessor .hljs-keyword,
+.hljs-pragma,
+.hljs-shebang,
+.hljs-symbol,
+.hljs-symbol .hljs-string,
+.diff .hljs-change,
+.hljs-special,
+.hljs-attr_selector,
+.hljs-subst,
+.hljs-cdata,
+.css .hljs-pseudo,
+.hljs-header {
+color: #cb4b16;
+}
+
+/* Solarized Red */
+.hljs-deletion,
+.hljs-important {
+color: #dc322f;
+}
+
+/* Solarized Violet */
+.hljs-link_label {
+color: #6c71c4;
+}
+
+.tex .hljs-formula {
+background: #eee8d5;
+}
+
+    </style>
+<script>
+    function mdSwitch() {
+        var mdValue = document.getElementById("md-area").value;
+        var converter = new showdown.Converter();
+        var html = converter.makeHtml(mdValue);
+        document.getElementById("show-area").innerHTML = html;
+    }
+    </script>
+<div id="area">
+    <table>
+        <tr>
+            <td><textarea name="" id="md-area" onkeyup=mdSwitch()></textarea></td>
+            <td>
+                <div id="show-area" class="clearfix"></div>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" html xmlns:th=http://www.thymeleaf.org>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <!-- 引入样式文件和动态控制 -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/static/js/jquery-3.2.1.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+
+    <link th:href="@{/static/css/bootstrap.min.css}" rel="stylesheet" />
+    <link th:href="@{/static/font-awesome/css/font-awesome.css}" rel="stylesheet" />
+    <link th:href="@{/static/css/style.css}" rel="stylesheet" />
+    <title>bootstrap案例</title>
+    <style>
+         .wrapper{background: url(/static/img/4.jpg) no-repeat;background-size:cover;font-size: 16px;}
+    </style>
+</head>
+<body>
+<div id="wrapper">
+    <nav class="navbar-default navbar-static-side" role="navigation" th:include="nav-client :: navigation"></nav>
+    <div id="page-wrapper" class="gray-bg">
+        <div class="border-bottom" th:include="header-client :: headerTop"></div>
+        <div class="row wrapper border-bottom white-bg page-heading" th:fragment="headerNav">
+            <div class="col-lg-10">
+                <h2>个人信息</h2>
+                <ol class="breadcrumb">
+                    <li>
+                        <a>首页</a>
+                    </li>
+                    <li>
+                        <a>个人信息</a>
+                    </li>
+                    <li class="active">
+                        <a>查看个人信息</a>
+                    </li>
+                </ol>
+            </div>
+            <div class="col-lg-2">
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-striped ">
+                <tr>
+                    <td>姓名</td>
+                    <td>性别</td>
+                    <td>用户状态</td>
+                    <td>操作</td>
+                </tr>
+                <tr th:each="u:${user}">
+                    <td th:text="${{u.name}}"></td>
+                    <td th:text="${{u.sex}}"></td>
+                    <td th:text="${u.status}"></td>
+                    <td>
+                        <a class="btn btn-primary btn-primary" href="">更改个人信息</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="footer" th:include="footer-client :: copyright"></div>
+</div>
+</div>
+<!-- Mainly scripts -->
+<script th:src="@{/static/js/jquery-2.1.1.js}"></script>
+<script th:src="@{/static/js/bootstrap.min.js}"></script>
+<script th:src="@{/static/js/plugins/metisMenu/jquery.metisMenu.js}"></script>
+<script th:src="@{/static/js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
+
+<!-- Peity -->
+<script th:src="@{/static/js/plugins/peity/jquery.peity.min.js}"></script>
+
+<!-- Custom and plugin javascript -->
+<script th:src="@{/static/js/inspinia.js}"></script>
+<script th:src="@{/static/js/plugins/pace/pace.min.js}"></script>
+
+<!-- Toastr script -->
+<script th:src="@{/static/js/plugins/toastr/toastr.min.js}"></script>
+
+<!-- common -->
+<script th:src="@{/static/js/common.js}"></script>
+</body>
+</html>

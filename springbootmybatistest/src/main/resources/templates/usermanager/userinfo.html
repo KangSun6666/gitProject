@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>MOXI</title>
+
+    <link th:href="@{/static/css/bootstrap.min.css}" rel="stylesheet" />
+    <link th:href="@{/static/font-awesome/css/font-awesome.css}" rel="stylesheet" />
+
+    <link th:href="@{/static/css/style.css}" rel="stylesheet" />
+
+
+</head>
+
+<body>
+
+<div id="wrapper">
+    <nav class="navbar-default navbar-static-side" role="navigation" th:include="nav :: navigation"></nav>
+    <div id="page-wrapper" class="gray-bg">
+        <div class="border-bottom" th:include="header :: headerTop"></div>
+        <div class="row wrapper border-bottom white-bg page-heading" th:fragment="headerNav">
+            <div class="col-lg-10">
+                <h2>查询用户</h2>
+                <ol class="breadcrumb">
+                    <li>
+                        <a>首页</a>
+                    </li>
+                    <li>
+                        <a>用户管理</a>
+                    </li>
+                    <li class="active">
+                        <a>查询用户</a>
+                    </li>
+                </ol>
+            </div>
+            <div class="col-lg-2">
+            </div>
+        </div>
+        <div>
+            <form class="form-horizontal" role="form" action="/user/selUser" method="post">
+                <div class="form-group">
+                    <label class="col-sm-1 control-label">姓名：</label>
+                    <div class="col-sm-4">
+                        <input type="text" name="name" class="form-control" >
+                    </div>
+                    <div class="col-sm-1">
+                        <input type="submit" class="btn btn-primary btn-primary" value="搜索">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped ">
+                <tr>
+                    <td>序号</td>
+                    <td>姓名</td>
+                    <td>密码</td>
+                    <td>性别</td>
+                    <td>用户级别</td>
+                    <td>用户状态</td>
+                    <td>操作</td>
+                </tr>
+                <tr th:each="u:${users}">
+                    <td th:text="${{u.id}}"></td>
+                    <td th:text="${{u.name}}"></td>
+                    <td>******</td>
+                    <!--<td th:text="${{u.password}}"></td>-->
+                    <td th:text="${{u.sex}}"></td>
+                    <td th:text="${{u.role}}"></td>
+                    <td th:text="${u.status}"></td>
+                    <td>
+                        <a th:href="@{'/user/toUpdate?id='+${u.id}}">修改</a>
+                        <a th:href="@{'/user/delUser?id='+${u.id}}">删除用户</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div align="center">
+            <ul class="pagination">
+                <li><a href="#">&laquo;</a></li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#">&raquo;</a></li>
+            </ul>
+        </div>
+        </div>
+        <div class="footer" th:include="footer :: copyright"></div>
+    </div>
+</div>
+
+<!-- Mainly scripts -->
+<script th:src="@{/static/js/jquery-2.1.1.js}"></script>
+<script th:src="@{/static/js/bootstrap.min.js}"></script>
+<script th:src="@{/static/js/plugins/metisMenu/jquery.metisMenu.js}"></script>
+<script th:src="@{/static/js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
+
+<!-- Peity -->
+<script th:src="@{/static/js/plugins/peity/jquery.peity.min.js}"></script>
+
+<!-- Custom and plugin javascript -->
+<script th:src="@{/static/js/inspinia.js}"></script>
+<script th:src="@{/static/js/plugins/pace/pace.min.js}"></script>
+
+<!-- Toastr script -->
+<script th:src="@{/static/js/plugins/toastr/toastr.min.js}"></script>
+
+<!-- common -->
+<script th:src="@{/static/js/common.js}"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.fkit.springbootmybatistest.mapper.MachineMapper">
+    <resultMap id="BaseResultMap" type="org.fkit.springbootmybatistest.entity.Machine">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="machine_id" jdbcType="INTEGER" property="machine_id"/>
+        <result column="m_factory" jdbcType="VARCHAR" property="m_factory"/>
+        <result column="m_usage" jdbcType="VARCHAR" property="m_usage"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="use_status" jdbcType="VARCHAR" property="use_status"/>
+    </resultMap>
+
+    <select id="fastSel" resultType="org.fkit.springbootmybatistest.entity.Machine">
+        select * from machine_info where use_status = 'on'
+    </select>
+
+    <select id="fastSelByUsage" resultType="org.fkit.springbootmybatistest.entity.Machine">
+        select * from machine_info where m_usage = #{m_usage} and use_status = 'on'
+    </select>
+
+    <select id="guestSel" resultType="org.fkit.springbootmybatistest.entity.Machine">
+        select * from machine_info where use_status != 'on'
+    </select>
+
+    <select id="guestSelByUsage" resultType="org.fkit.springbootmybatistest.entity.Machine">
+        select * from machine_info where m_usage = #{m_usage} and use_status != 'on'
+    </select>
+
+    <select id="sel" resultType="org.fkit.springbootmybatistest.entity.Machine">
+        select * from machine_info
+    </select>
+
+    <select id="selById" resultType="org.fkit.springbootmybatistest.entity.Machine">
+        select * from machine_info where id = #{id}
+    </select>
+    <select id="selByMachineId" resultType="org.fkit.springbootmybatistest.entity.Machine">
+        select * from machine_info where machine_id = #{machine_id}
+    </select>
+    <select id="selByUsage" resultType="org.fkit.springbootmybatistest.entity.Machine">
+        select * from machine_info where m_usage = #{m_usage}
+    </select>
+
+    <select id="selLikeUsage" resultType="org.fkit.springbootmybatistest.entity.Machine">
+        select * from machine_info where m_usage like CONCAT(concat('%',#{m_usage},'%'))
+    </select>
+
+    <select id="selByStatus" resultType="org.fkit.springbootmybatistest.entity.Machine">
+        select * from machine_info where use_status = #{use_status}
+    </select>
+
+    <insert id="addMachine" parameterType="org.fkit.springbootmybatistest.entity.Machine">
+        insert into machine_info (machine_id,m_factory,m_usage,description,use_status) values (#{machine_id},#{m_factory},#{m_usage},#{description},#{use_status})
+    </insert>
+
+    <delete id="delMachine" parameterType="int">
+        delete from machine_info where id = #{id}
+    </delete>
+
+    <update id="updateMachine" parameterType="org.fkit.springbootmybatistest.entity.Machine">
+        update machine_info set machine_id = #{machine_id},m_factory = #{m_factory},description = #{description} ,use_status = #{use_status},m_usage = #{m_usage} where id = #{id}
+    </update>
+
+    <update id="updateMachineInfo">
+        update machine_info set description = #{description} where machine_id = #{machine_id}
+    </update>
+
+    <update id="updateMachineStatus">
+        update machine_info set use_status = #{use_status} where machine_id = #{machine_id}
+    </update>
+
+
+</mapper>
